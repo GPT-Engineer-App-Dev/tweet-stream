@@ -1,4 +1,5 @@
 // Complete the Index page component for a simple Twitter clone
+import { fetchTweets, postTweet } from '../lib/crud';
 import { useState, useEffect } from "react";
 import { Box, Button, Container, Flex, Input, Stack, Text, VStack, Heading, Textarea, useToast } from "@chakra-ui/react";
 import { FaTwitter } from "react-icons/fa";
@@ -11,11 +12,13 @@ const Index = () => {
 
   // Simulating a database with local storage
   useEffect(() => {
-    const storedTweets = JSON.parse(localStorage.getItem("tweets")) || [];
+    (async () => {
+    const storedTweets = await fetchTweets();
     setTweets(storedTweets);
+    })();
   }, []);
 
-  const handleTweet = () => {
+  const handleTweet = async () => {
     if (!username || !content) {
       toast({
         title: "Error",
@@ -35,7 +38,7 @@ const Index = () => {
     };
 
     const updatedTweets = [newTweet, ...tweets];
-    localStorage.setItem("tweets", JSON.stringify(updatedTweets));
+    await postTweet(newTweet);
     setTweets(updatedTweets);
     setContent("");
   };
