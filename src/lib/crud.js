@@ -20,11 +20,3 @@ export const postTweet = async (tweet) => {
   if (error) throw error;
   return data;
 };
-
-export const storeTweet = async (tweet) => {
-  const { data, error } = await supabase
-    .from('tweets')
-    .insert([tweet]);
-  if (error) throw error;
-  return data;
-};
