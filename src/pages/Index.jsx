@@ -1,5 +1,5 @@
 // Complete the Index page component for a simple Twitter clone
-import { fetchTweets, postTweet } from '../lib/crud';
+import { fetchTweets, postTweet, storeTweet } from '../lib/crud';
 import { useState, useEffect } from "react";
 import { Box, Button, Container, Flex, Input, Stack, Text, VStack, Heading, Textarea, useToast } from "@chakra-ui/react";
 import { FaTwitter } from "react-icons/fa";
@@ -38,7 +38,7 @@ const Index = () => {
     };
 
     const updatedTweets = [newTweet, ...tweets];
-    await postTweet(newTweet);
+    await storeTweet(newTweet);
     setTweets(updatedTweets);
     setContent("");
   };
